@@ -66,9 +66,13 @@ public class Board
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < rows * cols; i++)
 		{
-			list.add(i);
+			if (i != firstClick)
+			{
+				list.add(i);
+			}
 		}
 		int count = mines;
+		//sets up all the locations where there's mines 
 		while (count > 0)
 		{
 			int index = (int) (Math.random() * list.size());
@@ -76,13 +80,12 @@ public class Board
 			board[location / cols][location % cols].isMine = true;
 			count--;
 		}
-		//sets up all the locations where there's mines 
-		
+		//sets up numbers indicating number of adj mines 
 		for (int i = 0; i < rows; i++)
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				
+				markMines(i, j);
 			}
 		}
 	}
@@ -102,15 +105,23 @@ public class Board
 					if (board[1][0].isMine)
 						board[1][0]++;
 				}
-				else if (j == rows - 1)
+				else if (j == rows - 1) //top right corner
 				{
-					
+					if (board[0][cols - 2].isMine)
+						board[0][cols - 2].adj++;
+					if (board[1][cols - 2].isMine)
+						board[1][cols - 2].adj++;
+					if (board[1][cols - 1].isMine)
+						board[1][cols - 1].adj++;
 				}
 				else
 				{
-					for (int i = 0; i < 2; i++)
+					for (int a = 0; a < 2; a++) //top edge
 					{
-						
+						for (int b = j - 1; b <= j + 1; b++)
+						{
+							if (a != b)
+						}
 					}
 				}
 			}
